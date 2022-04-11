@@ -1,48 +1,106 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import styled from 'styled-components';
 import VideoHome from '../images/video1.mp4';
+import Villa from '../images/villa.jpg';
+import Image1 from '../images/image1.jpg';
+import Tablou from '../images/tablouA.png';
+import Image2 from '../images/image2.jpg';
+import Image3 from '../images/image3.jpg';
+import Image4 from '../images/image4.jpg';
+import Image5 from '../images/image5.jpg';
+import Image6 from '../images/image6.jpg';
+import Image7 from '../images/image7.jpg';
+import Image8 from '../images/image8.jpg';
+import Boschet from '../images/boschet.png';
+
 import CallIcon from '@mui/icons-material/Call';
 import { motion } from 'framer-motion';
-import CloseIcon from '@mui/icons-material/Close';
+import gsap from 'gsap';
+import {ScrollTrigger} from 'gsap/ScrollTrigger';
+gsap.registerPlugin(ScrollTrigger);
+
+
 
 const Home = () => {
-    //TOGGLE CLICK STATE
-    const [windowClicked, setWindowClicked] = useState(false);
+  ScrollTrigger.refresh();
+     
     
 
+     //REF FOR TEXT
+     const textRef = useRef(null);
 
-  //GET THE SCROLL POSITION
+     //USE EFFECT FOR IMAGE IN SECTION1
 
-  const [scrollY, setScrollY] = useState(0);
+     useEffect(() => {
+      gsap.to('#section1-text', {
+        y: 200,
+        duration: 50,
+        scrollTrigger: {
+          trigger: '#section1-text',
+          
+          scrub: true,
+          start: 'top 90%',
+          end: 'top 0%'
+        }
+      });
+      
+     }, [])
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrollY(window.scrollY / 15);
-    };
-    handleScroll();
+         
 
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
+     const sec1Img = useRef(null);
 
-  console.log(scrollY);
+     useEffect(() => {
+       gsap.to('#section1-image', {
+         y: 100,
+         duration: 20,
+         scrollTrigger: {
+           trigger: '#section1-image',
+           
+           scrub: true,
+           start: 'top 55%',
+           end: 'top 0%'
+         }
+       })
+     })
 
-  
+     const sec2Image = useRef(null);
 
-  //-----
+     useEffect(() => {
+      gsap.to('#section2-image', {
+        y: 0,
+        duration: 20,
+        scrollTrigger: {
+          trigger: '#section2-image',
+          
+          scrub: true,
+          start: 'center center',
+          end: '100% 0%',
+          pin: true,
+        }
+      })
+    })
 
-  //ON CLICK FOR CARDS
-  const toggleWindowClick = () => {
-    setWindowClicked(!windowClicked);
+    const sec2Text = useRef(null);
+
+    useEffect(() => {
+      gsap.to('#section2-text', {
+        y: 0,
+        duration: 20,
+        scrollTrigger: {
+          trigger: '#section2-text',
+          
+          scrub: true,
+          start: 'center 45%',
+          end: '300% -10%',
+          pin: true,
+        }
+      })
+    })
+
     
-  }
 
-  
-
-  //-----
-
+     
   
 
   return (
@@ -60,42 +118,33 @@ const Home = () => {
     </HomeButton>
     </HomeInfoWrapper>
     </ContainerVideo>
-    <Section1>
-      <MainImg clicked={windowClicked} src='https://images.unsplash.com/photo-1592595896551-12b371d546d5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80'/>
-      <WindowImg
-      initial={{opacity: 0}}
-      whileHover={{
-        opacity: 0.6,
-        filter: 'grayscale(90%) brightness(20%) invert(1)'
-        
-      }}
-      onClick={toggleWindowClick}
-      src='https://i.ibb.co/18hykQf/house.png'/>
-    {windowClicked && 
-      <Card 
-      initial={{opacity: 0, transform: 'translate(-50%, -20%) scale(0.3)'}}
-      animate={{opacity: 1, transform: 'translate(-50%, -20%) scale(1)'}}
-      transition={{duration: 1, type: 'spring',}}
-      >
-      <CardIcon>
-      <CloseIcon onClick={toggleWindowClick}/>
-      </CardIcon>
-      <CardWindowImg src='https://i.ibb.co/18hykQf/house.png'/>
-      <CardText>ELEGANT DESIGN</CardText>
-      <CardText>DOUBLE REINFORCED WOOD</CardText>
-      <CardText>TRIPLE CAMERA B50 BUILD</CardText>
+    <Sec1 id='section1'>
       
-      </Card>}
-
-      {scrollY > 26 & scrollY < 90 && <TextSection1 
-      initial={{opacity: 0}}
-      animate={{opacity: 1}}
-      transition={{duration: 2, type: 'spring'}}
-      value={scrollY}>READY TO MOVE IN?</TextSection1>}
-
+    <Sec1Text1 ref={textRef} id='section1-text'>Ready for your new home?</Sec1Text1>
+    <Sec1Img id='section1-image' ref={sec1Img} src={Boschet}/>
+     
       
 
-    </Section1>
+    </Sec1>
+    <Sec2 id='section2'>
+    <Sec2Image ref={sec2Image} id='section2-image' src={Image1}/>
+    <Sec2Text
+    ref={sec2Text} id='section2-text'
+    >The 2020 Award-winning<br />Development Company</Sec2Text>
+    
+    
+    
+    </Sec2>
+    <Sec3 id='section3'>
+    <Sec3Image src={Image4} />
+    <Sec3Title>ABOUT ABLAZE</Sec3Title>
+    <Review1>Established in 1988, Ablaze aims to conquer the real-estate world. Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis totam quisquam numquam impedit sapiente maiores repellendus similique ipsum autem, possimus labore quas asperiores, vero aliquam accusantium dolor, facilis perferendis rem.
+    Id consequatur esse tempora cum vitae? Esse repudiandae reprehenderit perspiciatis ipsam fugiat dolorem illo quisquam laudantium! Asperiores culpa dolores, est temporibus fuga dolor animi et, repellendus natus, ipsam consectetur exercitationem.</Review1>
+   
+    <Sec3Image2 src={Image8} />
+    </Sec3>
+    
+      
     
     
        
@@ -105,81 +154,144 @@ const Home = () => {
   )
 }
 
-const TextSection1 = styled(motion.h1)`
-    position: absolute;
-    right: -450px;
-    top: 250px;
-    font-size: 75px;
-    color: white;
-    text-shadow: 2px 4px 4px darkgray;
-    
-    transform: ${props => props.value && `translateX(-${props.value * 1}%)`}
+const Review1 = styled(motion.h2)`
+  color : white;
+  font-size: clamp(0.5rem, 1.5rem, 4rem);
+  position: absolute;
+  top: 7%;
+  
+  width: 80%;
+  padding: 0px 30px;
+  
+  font-weight: 300;
+  letter-spacing: 1px;
+  text-shadow: 1px 1px 1px black;
+  
+  text-align: justify;
 `
 
 
-const Section1 = styled(motion.div)`
-    position: relative;
-    width: 100%;
-    height: 100vh;
-    
+const Sec3Title = styled(motion.h1)`
+  color: white;
+  font-size: 50px;
+  position: absolute;
+  top: 2%;
+  left: 50%;
+  transform: translateX(-50%);
+  font-weight: 400;
+  letter-spacing: 1.5px;
+  text-shadow: 2px 2px 2px black;
+  margin-bottom: 15px;
 `
 
-const MainImg = styled(motion.img)`
-    width: 100%;
-    height: auto;
-    filter: ${props => props.clicked ? 'brightness(50%)' : 'none'};
-    transition: 0.4s ease;
-    
-   
+const Sec3Image2 = styled(motion.img)`
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  object-fit: cover;
 `
 
-const WindowImg = styled(motion.img)`
-    position: absolute;
-    transform: translate(-99%, 59%);
-    z-index: 999;
-    width: 55%;
-    cursor: pointer;
+
+const Sec3Image = styled(motion.img)`
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  object-fit: cover;
 `
 
-const Card = styled(motion.div)`
-    position: absolute;
-    z-index: 999;
-    width: 400px;
-    height: 500px;
-    background-color: #ffffffd0;
-    border-radius: 25px;
-    top: 20%;
-    left: 50%;
-    transform: translate(-50%, -20%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    
 
+const Sec3 = styled.div`
+   width: 100%;
+  height: 200vh;
+  background: rgb(255,255,255);
+background: linear-gradient(135deg, rgba(255,255,255,0.13285024154589375) 0%, rgba(76,255,252,1) 0%, rgba(16,182,255,1) 100%);
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  overflow: hidden;
+  position: relative;
+  align-items: center;
 `
 
-const CardWindowImg = styled(motion.img)`
-  width: 60%;
-  filter: brightness(200%);
-  margin-top: 20px;
+const Sec2Text = styled(motion.h1)`
+  position: absolute;
+  color: white;
+  font-size: clamp(36px, 7vw, 45px);
+  text-shadow: 2px 2px 2px black;
+  letter-spacing: 1px;
+  font-weight: 200;
+  top: 5%;
+  left: 5%;
+  text-align: center;
   
 `
 
-const CardIcon = styled.div`
-  position: absolute;
-  right: 15px;
-  top: 15px;
-  cursor: pointer;
-  transform: scale(1.5);
+
+
+const Sec2Image = styled(motion.img)`
+  width: 100%;
+  height: 100vh;
+  object-fit: cover;
+  
 `
 
-const CardText = styled(motion.h1)`
-  color: black;
-  font-weight: 300;
-  font-size: 25px;
-  margin-top: 20px;
+
+
+
+
+
+const Sec2 = styled.div`
+  width: 100%;
+  height: 100vh;
+  background: rgb(255,255,255);
+background: linear-gradient(135deg, rgba(255,255,255,0.13285024154589375) 0%, rgba(76,255,252,1) 0%, rgba(16,182,255,1) 100%);
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  overflow: hidden;
+  position: relative;
+
 `
+
+const Sec1Text1 = styled.h1`
+  font-size: clamp(2rem, 10vw, 4rem);
+  color: white;
+  letter-spacing: 3px;
+  text-shadow: 2px 2px 2px black;
+  position: absolute;
+  top: 15%;
+  left: 5%;
+  font-weight: 300;
+  
+
+`
+
+
+const Sec1Img = styled(motion.img)`
+  width: clamp(350px, 40%, 700px);
+  height: auto;
+`
+
+
+const Sec1 = styled.div`
+  width: 100%;
+  height: 100vh;
+  background: url(${Villa}) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  
+  
+  
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-end;
+  position: relative;
+  overflow: hidden;
+`
+
 
 
 const ContainerVideo = styled.div`
@@ -189,16 +301,13 @@ const ContainerVideo = styled.div`
 
 const Video = styled.video`
     position: relative;
-    
-     
     object-fit: cover;
     width: 100%;
     height: 900px;
     object-fit: cover;
     min-width: 80%;
     min-height: 80%;
-    
-    
+        
 `
 
 const Cover = styled.div`
@@ -234,6 +343,7 @@ const HomeTitle = styled.h1`
   font-size: 40px;
   letter-spacing: 1.5px;
   margin-bottom: 20px;
+  font-weight: 300;
      
   
 `
@@ -242,8 +352,11 @@ const HomeSubtitle = styled.h2`
   position: relative;
   color: white;
   z-index: 5;
-  letter-spacing: 1px;
+  letter-spacing: 2px;
   margin-bottom: 20px;
+  
+  font-weight: 200;
+  
 `
 
 const HomeButton = styled.button`
@@ -260,23 +373,10 @@ const HomeButton = styled.button`
   letter-spacing: 0.5px;
   transition: all 0.4s ease-in;
   &:hover {
-    background-color: white;
+    background-color: var(--color-4);
     transform: scale(1.1)
   }
   
 `
-
-
-
-
-
-
-
-
-
-
-//NEED INTERSECTION OBSERVER STUFF
-
-
 
 export default Home

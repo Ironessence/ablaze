@@ -1,7 +1,7 @@
 * {
   margin: 0;
   padding: 0;
-  font-family: 'Lato', sans-serif;
+  font-family: 'Roboto', sans-serif;
   --color-1: #1c263b;
   --color-2: #9fa3a6;
   --color-3: #e9eae7;
@@ -11,6 +11,6 @@
 
 /* GLOBAL STYLES */
 body {
-  background-color: var(--color-2);
+  background-color: var(--color-1);
 }
 
